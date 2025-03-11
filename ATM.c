@@ -95,3 +95,32 @@ float deposit(float balance) {
     }
     return balance;
 }
+
+float withdraw(float balance) {
+    float amount;
+    printf("Enter amount to withdraw: ");
+    scanf("%f", &amount);
+    if (amount > 0 && amount <= balance) {
+        balance -= amount;
+        printf("Successfully withdrew $%.2f\n", amount);
+        if (transactionCount < MAX_TRANSACTIONS) {
+            sprintf(transactions[transactionCount++], "Withdrew: $%.2f", amount);
+        }
+    } else if (amount > balance) {
+        printf("Insufficient balance!\n");
+    } else {
+        printf("Invalid amount! Withdrawal must be greater than zero.\n");
+    }
+    return balance;
+}
+
+void transactionHistory() {
+    printf("\nTransaction History:\n");
+    if (transactionCount == 0) {
+        printf("No transactions yet.\n");
+    } else {
+        for (int i = 0; i < transactionCount; i++) {
+            printf("%d. %s\n", i + 1, transactions[i]);
+        }
+    }
+}
